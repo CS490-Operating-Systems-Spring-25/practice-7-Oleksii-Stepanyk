@@ -65,9 +65,6 @@ cpu_exec
     var catStr
     write "cat" to var:catStr
 
-    var validateStr
-    write "validate" to var:validateStr
-
     var differenceStr
     write "dif" to var:differenceStr
 
@@ -127,12 +124,6 @@ label kernel_start
     write OP_CMP_EQ to REG_OP
     cpu_exec
     jump_if label:cat_command
-
-    copy var:parsedStr to REG_A
-    copy var:validateStr to REG_B
-    write OP_CMP_EQ to REG_OP
-    cpu_exec
-    jump_if label:validate_command
 
     copy var:parsedStr to REG_A
     copy var:differenceStr to REG_B
@@ -196,10 +187,6 @@ label cat_command
         copy PROGRAM_COUNTER to var:sys_return
         jump label:sys_fs_close
         jump label:kernel_start
-
-
-label validate_command
-    jump label:startValidation
 
 label difference_command
     var file1
